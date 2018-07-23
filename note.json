@@ -1,0 +1,90 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark \r\nimport _root_.kafka.serializer.DefaultDecoder\r\nimport _root_.kafka.serializer.StringDecoder\r\nimport org.apache.spark.streaming.kafka.KafkaUtils\r\nimport org.apache.spark.storage.StorageLevel\r\nimport org.apache.spark.streaming._\r\n\r\nsc.setLogLevel(\"ERROR\")  // prevent INFO logging from polution output\r\n \r\nval ssc \u003d new StreamingContext(sc, Seconds(5))    // creating the StreamingContext with 5 seconds interval\r\n\r\n\r\nval kafkaConf \u003d Map(\r\n    \"metadata.broker.list\" -\u003e \"localhost:9092\",\r\n    \"zookeeper.connect\" -\u003e \"localhost:2181\",\r\n    \"group.id\" -\u003e \"kafka-streaming-example\",\r\n    \"zookeeper.connection.timeout.ms\" -\u003e \"1000\"\r\n)\r\n\r\nval lines \u003d KafkaUtils.createStream[Array[Byte], String, DefaultDecoder, StringDecoder](\r\n    ssc,\r\n    kafkaConf,\r\n    Map(\"topic01\" -\u003e 0),   // subscripe to topic and partition 1\r\n    StorageLevel.MEMORY_ONLY\r\n)\r\n \r\nval words \u003d lines.flatMap{ case(x, y) \u003d\u003e y.split(\" \")}\r\n \r\nwords.print()\r\n\r\n\r\n ssc.stop()\r\n",
+      "user": "anonymous",
+      "dateUpdated": "Dec 8, 2017 3:43:34 PM",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import _root_.kafka.serializer.DefaultDecoder\nimport _root_.kafka.serializer.StringDecoder\nimport org.apache.spark.streaming.kafka.KafkaUtils\nimport org.apache.spark.storage.StorageLevel\nimport org.apache.spark.streaming._\nssc: org.apache.spark.streaming.StreamingContext \u003d org.apache.spark.streaming.StreamingContext@60538811\nkafkaConf: scala.collection.immutable.Map[String,String] \u003d Map(metadata.broker.list -\u003e localhost:9092, zookeeper.connect -\u003e localhost:2181, group.id -\u003e kafka-streaming-example, zookeeper.connection.timeout.ms -\u003e 1000)\nlines: org.apache.spark.streaming.dstream.ReceiverInputDStream[(Array[Byte], String)] \u003d org.apache.spark.streaming.kafka.KafkaInputDStream@85e1919\nwords: org.apache.spark.streaming.dstream.DStream[String] \u003d org.apache.spark.streaming.dstream.FlatMappedDStream@76d84b8d\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1512744744573_-322611995",
+      "id": "20171207-173418_9967788",
+      "dateCreated": "Dec 8, 2017 2:52:24 PM",
+      "dateStarted": "Dec 8, 2017 3:43:34 PM",
+      "dateFinished": "Dec 8, 2017 3:43:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "dateUpdated": "Dec 8, 2017 2:52:24 PM",
+      "config": {
+        "editorSetting": {
+          "language": "scala"
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1512744744579_-237197739",
+      "id": "20171207-173424_2137119843",
+      "dateCreated": "Dec 8, 2017 2:52:24 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "KAFKA/_20171208_14_52",
+  "id": "2D2AQR4GP",
+  "angularObjects": {
+    "2D1Z89498:shared_process": [],
+    "2CZ8V1WPZ:shared_process": [],
+    "2D1PUECC9:shared_process": [],
+    "2CZNRHJSK:shared_process": [],
+    "2D1UCS663:shared_process": [],
+    "2D1ZPQQD2:shared_process": [],
+    "2CZA6NA5C:shared_process": [],
+    "2D3MDRMTP:shared_process": [],
+    "2CZNWGHAT:shared_process": [],
+    "2D3DK95GH:shared_process": [],
+    "2D3KZXCSK:shared_process": [],
+    "2D1A85JYC:shared_process": [],
+    "2D3E48F1N:shared_process": [],
+    "2CZ8G1BMN:shared_process": [],
+    "2D1C6D865:shared_process": [],
+    "2CZ8GHCAM:shared_process": [],
+    "2D2ZB9ZZZ:shared_process": [],
+    "2CZJ6AKDF:shared_process": [],
+    "2D112NVK3:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
